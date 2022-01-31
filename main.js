@@ -1,15 +1,3 @@
-console.dir(document)
-console.log(document.domain)
-console.log(document.URL)
-console.log(document.title)
-
-console.log(document.doctype)
-console.log(document.head)
-console.log(document.body)
-
-console.log(document.links)
-console.log(document.images)
-
 // var headerTitle = document.getElementById('header-title')
 
 // headerTitle.innerHTML = '<h3>Hello</h3>'
@@ -36,30 +24,38 @@ itemlist.parentNode.style.backgroundColor = 'lightblue'
 
 console.log(itemlist.children)
 
-itemlist.children[1].style.backgroundColor = 'orange'
+var form = document.getElementById('addForm')
+var itemList = document.getElementById('items')
+var filter = document.getElementById('filter')
 
-itemlist.firstElementChild.textContent = 'This is our First Child !!'
-itemlist.lastElementChild.textContent = 'Reached our Last Child !!'
+console.log(form)
+console.log(itemlist)
+console.log(filter)
 
-console.log(itemlist.nextSibling)
-console.log(itemlist.nextElementSibling)
+form.addEventListener('submit', addItem)
 
-console.log(itemlist.previousSibling)
-console.log(itemlist.previousElementSibling)
-itemlist.previousElementSibling.style.color = 'red'
+function addItem(e) {
+  e.preventDefault()
+  console.log('entered')
 
-var newdiv = document.createElement('div')
-newdiv.className = 'hello'
-newdiv.id = 'hello1'
-newdiv.setAttribute('title', 'Hello Div')
+  var newItem = document.getElementById('item').value
+  var li = document.createElement('li')
+  li.className = 'list-group-item'
+  li.appendChild(document.createTextNode(newItem))
+  var deleteBtn = document.createElement('button')
+  deleteBtn.className = 'btn btn-danger btn-sm float-right delete'
+  deleteBtn.appendChild(document.createTextNode('X'))
+  li.appendChild(deleteBtn)
+  itemList.appendChild(li)
+}
 
-// console.log(newdiv)
+itemList.addEventListener('click', removeItem)
 
-var newDivText = document.createTextNode('Hello_World')
-newdiv.appendChild(newDivText)
-
-var container = document.querySelector('header .container')
-var h1 = document.querySelector('header h1')
-container.insertBefore(newdiv, h1)
-
-console.log(newdiv)
+function removeItem(e) {
+  if (e.target.classList.contains('delete')) {
+    if (confirm('Are You Sure?')) {
+      var li = e.target.parentElement
+      itemList.removeChild(li)
+    }
+  }
+}
