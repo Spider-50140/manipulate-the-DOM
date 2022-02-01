@@ -43,8 +43,20 @@
         <h2 class="title">Add Items</h2>
 
         <form id="addForm" class="form-inline mb-3">
-          <input type="text" class="form-control mr-2" id="item" />
-
+          <input
+            type="text"
+            class="form-control mr-2"
+            value="Name"
+            onfocus="this.value=''"
+            id="item"
+          />
+          <input
+            type="text"
+            class="form-control mr-2"
+            value="description"
+            id="des"
+            onfocus="this.value=''"
+          />
           <input type="submit" class="btn btn-dark" value="Submit" />
         </form>
 
@@ -53,7 +65,7 @@
         <ul id="items" class="list-group">
           <li class="list-group-item">
             Item 1
-
+            <h6 class="description">Description 1</h6>
             <button class="btn btn-danger btn-sm float-right delete">X</button>
             <button class="btn btn-success btn-sm float-right delete">
               Edit
@@ -62,7 +74,7 @@
 
           <li class="list-group-item">
             Item 2
-
+            <h6 class="description">Description 2</h6>
             <button class="btn btn-danger btn-sm float-right delete">X</button>
             <button class="btn btn-success btn-sm float-right delete">
               Edit
@@ -71,7 +83,7 @@
 
           <li class="list-group-item hide">
             Item 3
-
+            <h6 class="description">Description 3</h6>
             <button class="btn btn-danger btn-sm float-right delete">X</button>
             <button class="btn btn-success btn-sm float-right delete">
               Edit
@@ -80,7 +92,7 @@
 
           <li class="list-group-item">
             Item 4
-
+            <h6 class="description">Description 4</h6>
             <button class="btn btn-danger btn-sm float-right delete">X</button>
             <button class="btn btn-success btn-sm float-right delete">
               Edit
