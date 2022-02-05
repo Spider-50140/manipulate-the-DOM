@@ -3,6 +3,7 @@ const ul = document.querySelector('.items')
 var form = document.getElementById('my-form')
 
 form.addEventListener('submit', store)
+var data = []
 
 function store(e) {
   e.preventDefault()
@@ -15,10 +16,14 @@ function store(e) {
     name: name,
     email: email,
   }
+  // person = { ...person, person1 }
+  data.push(person1)
 
-  localStorage.setItem('person1', JSON.stringify(person1))
+  console.log(data)
 
-  console.log(person1)
+  localStorage.setItem('person', JSON.stringify(data))
+
+  // console.log(person1)
   console.log(name)
   console.log(email)
 }
@@ -29,8 +34,18 @@ function store(e) {
 
 window.onload = function () {
   // alert('loaded')
-  var user = JSON.parse(localStorage.getItem('person1'))
-  document.getElementById('pname').innerHTML = user.name
-  document.getElementById('pemail').innerHTML = user.email
+  var user = JSON.parse(localStorage.getItem('person'))
+  var para = document.getElementById('demo')
+  console.log(para)
+  for (var i = 0; i < user.length; i++) {
+    // document.getElementById('pname').innerHTML = user[i].name
+    // document.getElementById('pemail').innerHTML = user[i].email
+    para.innerHTML += user[i].name
+    para.innerHTML += '<br> '
+    para.innerHTML += user[i].email
+    para.innerHTML += '<br> '
+    // document.appendChild(para).innerHTML = user[i].email
+  }
+
   console.log(user)
 }
