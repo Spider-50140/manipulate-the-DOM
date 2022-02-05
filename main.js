@@ -3,7 +3,6 @@ const ul = document.querySelector('.items')
 var form = document.getElementById('my-form')
 
 form.addEventListener('submit', store)
-var data = []
 
 function store(e) {
   e.preventDefault()
@@ -12,40 +11,71 @@ function store(e) {
   var name = document.getElementById('name').value
   var email = document.getElementById('email').value
 
-  var person1 = {
+  var person = {
     name: name,
     email: email,
   }
-  // person = { ...person, person1 }
-  data.push(person1)
+  if (localStorage.getItem('data') == null) {
+    localStorage.setItem('data', '[]')
+  }
 
-  console.log(data)
+  var prevdata = JSON.parse(localStorage.getItem('data'))
+  prevdata.push(person)
 
-  localStorage.setItem('person', JSON.stringify(data))
+  localStorage.setItem('data', JSON.stringify(prevdata))
 
-  // console.log(person1)
-  console.log(name)
-  console.log(email)
+  adddata(person)
 }
 
-// ul.children[0].innerHTML = '<h4 style="color:green">DEMO</h4>'
+function adddata(object) {
+  const ul = document.getElementById('users')
+  const li = document.createElement('li')
+  li.appendChild(
+    document.createTextNode(object.name + ' ' + object.email + ' ')
+  )
 
-// ul.children[1].innerHTML = '<h4 style="color:yellow" >Satya</h4>'
+  const editbutton = document.createElement('input')
+  editbutton.type = 'button'
+  editbutton.value = 'Edit'
+
+  const deletebutton = document.createElement('input')
+  deletebutton.type = 'button'
+  deletebutton.value = 'delete'
+
+  editbutton.addEventListener('click', () => {
+    document.getElementById('name').value = object.name
+    document.getElementById('email').value = object.email
+    li.remove()
+  })
+
+  deletebutton.addEventListener('click', () => {
+    const { name, email } = object
+    var arr = JSON.parse(localStorage.getItem('data'))
+
+    arr = arr.filter(function (item) {
+      return item.name !== name
+    })
+    localStorage.setItem('data', JSON.stringify(arr))
+    li.remove()
+  })
+
+  li.appendChild(editbutton)
+  li.appendChild(deletebutton)
+
+  ul.appendChild(li)
+}
 
 window.onload = function () {
   // alert('loaded')
-  var user = JSON.parse(localStorage.getItem('person'))
-  var para = document.getElementById('demo')
-  console.log(para)
+  var user = JSON.parse(localStorage.getItem('data'))
   for (var i = 0; i < user.length; i++) {
-    // document.getElementById('pname').innerHTML = user[i].name
-    // document.getElementById('pemail').innerHTML = user[i].email
-    para.innerHTML += user[i].name
-    para.innerHTML += '<br> '
-    para.innerHTML += user[i].email
-    para.innerHTML += '<br> '
-    // document.appendChild(para).innerHTML = user[i].email
+    const { name, email } = user[i]
+    object = {
+      name: name,
+      email: email,
+    }
+    adddata(object)
   }
-
   console.log(user)
+  console.log(user[2].name)
 }
