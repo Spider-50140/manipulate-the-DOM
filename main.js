@@ -17,3 +17,4 @@ let divide = function (n1) {
 
 var task1 = divide(50)
 task1(10)
+task1(20)
